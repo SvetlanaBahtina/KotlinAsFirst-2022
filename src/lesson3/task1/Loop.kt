@@ -2,6 +2,7 @@
 
 package lesson3.task1
 
+import kotlin.math.abs
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
@@ -296,7 +297,7 @@ fun squareSequenceDigit(n: Int): Int {
         s++
     }
     if (a == 0) return 0
-    return a
+    return abs(a)
 }
 
 /**
