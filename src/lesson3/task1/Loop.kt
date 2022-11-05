@@ -295,8 +295,8 @@ fun squareSequenceDigit(n: Int): Int {
         k = k / 10
         s++
     }
-    if (a != 0) return a
-    return 0
+    if (a == 0) return 0
+    return a
 }
 
 /**
