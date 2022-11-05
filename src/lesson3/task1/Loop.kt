@@ -2,6 +2,7 @@
 
 package lesson3.task1
 
+import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
 // Урок 3: циклы
@@ -80,7 +81,7 @@ fun digitNumber(n: Int): Int {
         count++
         numb /= 10
     }
-    return (count)
+    return count
 }
 
 /**
@@ -93,12 +94,12 @@ fun fib(n: Int): Int {
     var k1 = 1
     var k2 = 1
     var r = 0
-    for (i in 3..n){
+    for (i in 3..n) {
         r = k2
         k2 += k1
         k1 = r
     }
-    return (k2)
+    return k2
 }
 
 /**
@@ -108,13 +109,13 @@ fun fib(n: Int): Int {
  */
 fun minDivisor(n: Int) : Int{
     var k = 0
-    for (i in 2..n){
+    for (i in 2..n) {
         if (n % i == 0) {
             k = i
             break
         }
     }
-    return (k)
+    return k
 }
 
 /**
@@ -130,7 +131,7 @@ fun maxDivisor(n: Int): Int {
             break
         }
     }
-    return (k)
+    return k
 }
 
 /**
@@ -158,7 +159,7 @@ fun collatzSteps(x: Int): Int {
         else q = 3 * q + 1
         c++
     }
-    return (c)
+    return c
 }
 
 /**
@@ -167,14 +168,17 @@ fun collatzSteps(x: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int {
+fun alg(m: Int, n: Int): Int {
     var a = m
     var b = n
     while (a != b){
         if (a > b) a = a - b
         else b = b - a
     }
-    return (m * n / a)
+    return a
+}
+fun lcm(m: Int, n: Int): Int {
+    return m * n / alg(m, n)
 }
 
 /**
@@ -185,13 +189,7 @@ fun lcm(m: Int, n: Int): Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    var a = m
-    var b = n
-    while (a != b){
-        if (a > b) a = a - b
-        else b = b - a
-    }
-    return (a == 1)
+    return alg(m, n) == 1
 }
 
 /**
@@ -234,10 +232,10 @@ fun hasDifferentDigits(n: Int): Boolean {
     var t = n / 10
     var k = n % 10
     while (t != 0){
-        if (k != t % 10) return (true)
+        if (k != t % 10) return true
         t = t / 10
     }
-    return (false)
+    return false
 }
 
 /**
@@ -297,7 +295,8 @@ fun squareSequenceDigit(n: Int): Int {
         k = k / 10
         s++
     }
-    return (a)
+    if (a != 0) return a
+    return 0
 }
 
 /**
@@ -309,31 +308,4 @@ fun squareSequenceDigit(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int {
-    var s = 0
-    var i = 0
-    var b = 0
-    var c = 0
-    var k = 0
-    var a = 0
-    var t = n
-    while (s < t){
-        i++
-        b = fib(i)
-        c = 1
-        k = 10
-        while (b / k != 0){
-            k = k * 10
-            c = c + 1
-        }
-        s = s + c
-    }
-    s = s - c
-    k = k / 10
-    while (s != t) {
-        a = b / k % 10
-        k = k / 10
-        s++
-    }
-    return (a)
-}
+fun fibSequenceDigit(n: Int): Int = TODO()

@@ -48,9 +48,7 @@ fun daysInMonth(month: Int, year: Int): Int = TODO()
 fun circleInside(
     x1: Double, y1: Double, r1: Double,
     x2: Double, y2: Double, r2: Double
-): Boolean = ((((y1 + r1 < y2 + r2) and (x1 + r1 < x2 + r2) and (y1 - r1 > y2 - r2) and (x1 - r1 > x2 - r2)) or
-                ((((y1 + r1 == y2 + r2) or (y1 - r1 == y2 - r2)) and (x1 == x2)) or
-                        (((x1 + r1 == x2 + r2) or (x1 - r1 == x2 - r2)) and (y1 == y2)))))
+): Boolean = TODO()
 
 /**
  * Средняя (3 балла)
