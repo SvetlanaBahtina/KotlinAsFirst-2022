@@ -2,6 +2,7 @@
 
 package lesson3.task1
 
+import lesson1.task1.sqr
 import kotlin.math.abs
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
@@ -271,33 +272,15 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun squareSequenceDigit(n: Int): Int {
-    var s = 0
-    var i = 0
-    var b = 0
+    var d = 0
     var c = 0
-    var k = 0
-    var a = 0
-    var t = n
-    while (s < t){
-        i++
-        b = i * i
-        c = 1
-        k = 10
-        while (b / k != 0){
-            k = k * 10
-            c = c + 1
-        }
-        s = s + c
+    var m = 0
+    while (d < n) {
+        c++
+        m = sqr(c)
+        d += digitNumber(m)
     }
-    s = s - c
-    k = k / 10
-    while (s != t) {
-        a = b / k % 10
-        k = k / 10
-        s++
-    }
-    if (a == null) return 0
-    return abs(a)
+    return (m / Math.pow(10.0, (d - n).toDouble()) % 10.0).toInt()
 }
 
 /**
@@ -309,4 +292,15 @@ fun squareSequenceDigit(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var d = 0
+    var c = 0
+    var m = 0
+    while (d < n) {
+        c++
+        m = fib(c)
+        d += digitNumber(m)
+    }
+    return (m / Math.pow(10.0, (d - n).toDouble()) % 10.0).toInt()
+
+}
