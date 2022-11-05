@@ -233,6 +233,7 @@ fun factorizeToString(n: Int): String = TODO()
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
 fun convert(n: Int, base: Int): MutableList<Int> {
+    if (n == 0) return mutableListOf<Int>(0)
     var m = n
     var v = mutableListOf<Int>()
     while (m != 0) {
@@ -347,7 +348,7 @@ fun russian(n: Int): String {
     var y4 = ""
     if (n > 999){
         if (n > 99999) y1 = x3[n / 100000]
-        if (n / 10000 % 100 in 11..19) {
+        if (n / 1000 % 100 in 11..19) {
             y2 = x2[n / 1000 % 100] + x4[3]
         }
         else {
