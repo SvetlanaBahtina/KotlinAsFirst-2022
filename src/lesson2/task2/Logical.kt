@@ -3,6 +3,7 @@
 package lesson2.task2
 
 import lesson1.task1.sqr
+import java.lang.Math.sqrt
 
 /**
  * Пример
@@ -48,7 +49,10 @@ fun daysInMonth(month: Int, year: Int): Int = TODO()
 fun circleInside(
     x1: Double, y1: Double, r1: Double,
     x2: Double, y2: Double, r2: Double
-): Boolean = TODO()
+): Boolean {
+    if (sqrt((sqr(x2 - x1) + sqr(y2 - y1)).toDouble()) + r1 <= r2) return true
+    return false
+}
 
 /**
  * Средняя (3 балла)
@@ -60,5 +64,5 @@ fun circleInside(
  * Вернуть true, если кирпич пройдёт
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean =
-    (((a <= r) and (b <= s)) or ((a <= s) and (b <=r)) or ((a <= r) and (c <= s)) or
-            ((a <= s) and (c <=r)) or ((c <= r) and (b <= s)) or ((c <= s) and (b <=r)))
+    (((a <= r) && (b <= s)) || ((a <= s) && (b <= r)) || ((a <= r) && (c <= s)) ||
+            ((a <= s) && (c <= r)) || ((c <= r) && (b <= s)) || ((c <= s) && (b <= r)))

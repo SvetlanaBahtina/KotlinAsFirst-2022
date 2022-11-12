@@ -78,7 +78,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
 fun digitNumber(n: Int): Int {
     var numb = n
     var count = 0
-    if (numb == 0) return (1)
+    if (numb == 0) return 1
     while (numb != 0) {
         count++
         numb /= 10
@@ -110,14 +110,8 @@ fun fib(n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int) : Int{
-    var k = 0
-    for (i in 2..n) {
-        if (n % i == 0) {
-            k = i
-            break
-        }
-    }
-    return k
+    for (i in 2..sqrt(n.toDouble()).toInt()) if (n % i == 0) return i
+    return n
 }
 
 /**
@@ -125,17 +119,7 @@ fun minDivisor(n: Int) : Int{
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int {
-    var k = 0
-    for (i in 2..n){
-        if (n % i == 0) {
-            k = n / i
-            break
-        }
-    }
-    return k
-}
-
+fun maxDivisor(n: Int): Int = n / minDivisor(n)
 /**
  * Простая (2 балла)
  *
@@ -179,9 +163,7 @@ fun alg(m: Int, n: Int): Int {
     }
     return a
 }
-fun lcm(m: Int, n: Int): Int {
-    return m * n / alg(m, n)
-}
+fun lcm(m: Int, n: Int): Int = m * n / alg(m, n)
 
 /**
  * Средняя (3 балла)
@@ -190,9 +172,7 @@ fun lcm(m: Int, n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean {
-    return alg(m, n) == 1
-}
+fun isCoPrime(m: Int, n: Int): Boolean = alg(m, n) == 1
 
 /**
  * Средняя (3 балла)
