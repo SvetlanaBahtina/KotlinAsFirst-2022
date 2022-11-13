@@ -2,6 +2,9 @@
 
 package lesson6.task1
 
+import lesson2.task2.daysInMonth
+import java.lang.Integer.max
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -74,7 +77,20 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val months = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября",
+        "ноября", "декабря")
+    if (str.matches(Regex("""\d* [а-я]* \d*"""))) {
+        val datelist = mutableListOf<String>()
+        val list = str.split(" ")
+        for (x in list) datelist.add(x)
+        if (datelist.size != 3 || !months.contains(datelist[1]) || datelist[0].toInt() !in
+            1..daysInMonth(months.indexOf(datelist[1]) + 1, datelist[2].toInt())) return ""
+        datelist[1] = (months.indexOf(datelist[1]) + 1).toString()
+        return String.format("%02d.%02d.%01d", datelist[0].toInt(), datelist[1].toInt(), datelist[2].toInt())
+    }
+    return ""
+}
 
 /**
  * Средняя (4 балла)
@@ -86,7 +102,20 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val months = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября",
+        "ноября", "декабря")
+    if (digital.matches(Regex("""\d+\.\d+\.\d+"""))) {
+        val list = digital.split(".")
+        val datelist = mutableListOf<String>()
+        for (x in list) datelist.add(x)
+        if (datelist.size != 3 || datelist[1].toInt() !in 1..months.size || datelist[0].toInt() !in
+            1..daysInMonth(datelist[1].toInt(), datelist[2].toInt())) return ""
+        datelist[1] = months[datelist[1].toInt() - 1]
+        return String.format("%d %s %d", datelist[0].toInt(), datelist[1], datelist[2].toInt())
+    }
+    return ""
+}
 
 /**
  * Средняя (4 балла)
@@ -102,7 +131,9 @@ fun dateDigitToStr(digital: String): String = TODO()
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+fun flattenPhoneNumber(phone: String): String =
+    if (!phone.matches(Regex("""(\+? *\d[- \d]*(\([-\d ]+\)[-\d ]+)?)"""))) ""
+    else phone.filter { it !in " " && it !in "(" && it !in ")" && it !in "-" }
 
 /**
  * Средняя (5 баллов)
@@ -114,7 +145,13 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps: String): Int {
+    if (jumps.contains(Regex("""[^\d\s\-%]"""))) return -1
+    val list = jumps.split(" ")
+    var m = -1
+    for (x in list) if (x != "-" && x != "%") m = max(m, x.toInt())
+    return m
+}
 
 /**
  * Сложная (6 баллов)
@@ -138,7 +175,20 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    if (!"$expression + ".matches(Regex("""(\d+ [+-] )+"""))) {
+        throw IllegalArgumentException(expression)
+    }
+    val list = expression.split(" ")
+    var res = list[0].toInt()
+    for (i in 1 until list.size step 2){
+        res += list[i+1].toInt() * when (list[i]) {
+            "+" -> 1
+            else -> -1
+        }
+    }
+    return res
+}
 
 /**
  * Сложная (6 баллов)
