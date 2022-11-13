@@ -153,7 +153,7 @@ fun flattenPhoneNumber(phone: String): String =
  */
 fun bestLongJump(jumps: String): Int {
     if (jumps == "" || jumps.contains(Regex("""[^\d\s\-%]""")) ||
-        jumps.contains(Regex("""(([%\-+])(\d))|((\d)([%\-+]))"""))
+        !jumps.contains(Regex("""\d*"""))
     ) return -1
     val list = jumps.split(" ")
     var m = -1
