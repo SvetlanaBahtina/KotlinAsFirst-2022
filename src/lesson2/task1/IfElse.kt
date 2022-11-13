@@ -77,6 +77,7 @@ fun ageDescription(age: Int): String {
         else -> "$age года"
     }
 }
+
 /**
  * Простая (2 балла)
  *
@@ -137,7 +138,6 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
-
 
 
 /**

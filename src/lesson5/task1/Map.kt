@@ -193,9 +193,9 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
     val a = mutableMapOf<String, Double>()
     val c = mutableMapOf<String, Int>()
-    for (x in stockPrices){
+    for (x in stockPrices) {
         if (!(x.first in a)) a[x.first] = x.second
-        else{
+        else {
             if (x.first in c) c[x.first] = c.getValue(x.first) + 1
             else c[x.first] = 2
             a[x.first] = a.getValue(x.first) + x.second
@@ -203,7 +203,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
     }
     for ((i) in c) a[i] = a.getValue(i) / c.getValue(i)
     return a
-} 
+}
 
 /**
  * Средняя (4 балла)
@@ -232,7 +232,6 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
 }
 
 
-
 /**
  * Средняя (3 балла)
  *
@@ -243,6 +242,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
+
 /**
  * Средняя (4 балла)
  *
@@ -280,7 +280,7 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  */
 fun hasAnagrams(words: List<String>): Boolean {
     var s = mutableSetOf<Set<Char>>()
-    for (i in words.indices){
+    for (i in words.indices) {
         if (words[i].toSet() in s) return true
         s.add(words[i].toSet())
     }
@@ -380,15 +380,15 @@ fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<Strin
     }
     for (i in 1..treasures.size)
         for (j in 0..capacity)
-            if (j >=masslist[i - 1])
-                prices[i][j] = max(prices[i-1][j] , prices[i - 1][j - masslist[i-1]] + pricelist[i - 1])
-            else prices[i][j] = prices[i-1][j]
+            if (j >= masslist[i - 1])
+                prices[i][j] = max(prices[i - 1][j], prices[i - 1][j - masslist[i - 1]] + pricelist[i - 1])
+            else prices[i][j] = prices[i - 1][j]
     var j = capacity
     var i = treasures.size
-    while (i > 0){
-        if (prices[i][j] != prices[i-1][j]){
+    while (i > 0) {
+        if (prices[i][j] != prices[i - 1][j]) {
             res.add(treasureslist[i - 1])
-            j = j - masslist[i-1]
+            j = j - masslist[i - 1]
         }
         i--
     }

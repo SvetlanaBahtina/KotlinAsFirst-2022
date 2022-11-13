@@ -152,7 +152,7 @@ fun mean(list: List<Double>): Double {
 fun center(list: MutableList<Double>): MutableList<Double> {
     if (list.isNotEmpty()) {
         var k = mean(list)
-        for (i in 0 until list.size){
+        for (i in 0 until list.size) {
             list[i] = list[i] - k
         }
     }
@@ -204,7 +204,6 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> {
     }
     return list
 }
-
 
 
 /**
@@ -259,8 +258,10 @@ fun convertToString(n: Int, base: Int): String {
     if (n == 0) return "0"
     var m = n
     var v = ""
-    val k = listOf<String>("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h",
-        "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
+    val k = listOf<String>(
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h",
+        "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+    )
     while (m != 0) {
         v = k[m % base] + v
         m = m / base
@@ -299,8 +300,10 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * (например, str.toInt(base)), запрещается.
  */
 fun decimalFromString(str: String, base: Int): Int {
-    val k = listOf<String>("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h",
-        "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
+    val k = listOf<String>(
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h",
+        "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+    )
     var a = 1
     var r = 0
     val n = str.length
@@ -320,10 +323,10 @@ fun decimalFromString(str: String, base: Int): Int {
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    val x1 = listOf("", "I","II","III","IV","V","VI","VII","VIII","IX")
-    val x2 = listOf("","X","XX","XXX","XL","L","LX","LXX","LXXX","XC")
-    val x3 = listOf("","C","CC","CCC","CD","D","DC","DCC","DCCC","CM")
-    val x4 = listOf("","M","MM","MMM","MMMM")
+    val x1 = listOf("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX")
+    val x2 = listOf("", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC")
+    val x3 = listOf("", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
+    val x4 = listOf("", "M", "MM", "MMM", "MMMM")
     return x4[n / 1000] + x3[n / 100 % 10] + x2[n / 10 % 10] + x1[n % 10]
 }
 
@@ -335,23 +338,26 @@ fun roman(n: Int): String {
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String {
-    val x1 = listOf("", "один ","два ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
-    val x2 = listOf("", "десять ", "двадцать ", "тридцать ", "сорок ", "пятьдесят ", "шестьдесят ", "семьдесят ",
+    val x1 = listOf("", "один ", "два ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
+    val x2 = listOf(
+        "", "десять ", "двадцать ", "тридцать ", "сорок ", "пятьдесят ", "шестьдесят ", "семьдесят ",
         "восемьдесят ", "девяносто ", "", "одиннадцать ", "двенадцать ", "тринадцать ", "четырнадцать ", "пятнадцать ",
-        "шестнадцать ", "семнадцать ", "восемнадцать ", "девятнадцать ")
-    val x3 = listOf("", "сто ", "двести ", "триста ", "четыреста ", "пятьсот ", "шестьсот ", "семьсот ", "восемьсот ",
-        "девятьсот ")
+        "шестнадцать ", "семнадцать ", "восемнадцать ", "девятнадцать "
+    )
+    val x3 = listOf(
+        "", "сто ", "двести ", "триста ", "четыреста ", "пятьсот ", "шестьсот ", "семьсот ", "восемьсот ",
+        "девятьсот "
+    )
     val x4 = listOf("одна тысяча ", "две тысячи ", "тысячи ", "тысяч ")
     var y1 = ""
     var y2 = ""
     var y3 = ""
     var y4 = ""
-    if (n > 999){
+    if (n > 999) {
         if (n > 99999) y1 = x3[n / 100000]
         if (n / 1000 % 100 in 11..19) {
             y2 = x2[n / 1000 % 100] + x4[3]
-        }
-        else {
+        } else {
             if (n / 1000 % 10 in 1..2) y2 = x2[n / 10000 % 10] + x4[n / 1000 % 10 - 1]
             else if (n / 1000 % 10 in 3..4) y2 = x2[n / 10000 % 10] + x1[n / 1000 % 10] + x4[2]
             else y2 = x2[n / 10000 % 10] + x1[n / 1000 % 10] + x4[3]
@@ -360,7 +366,6 @@ fun russian(n: Int): String {
     y3 = x3[n / 100 % 10]
     if (n % 100 in 11..19) {
         y4 = x2[n % 100]
-    }
-    else y4 = x2[n / 10 % 10] + x1[n % 10]
+    } else y4 = x2[n / 10 % 10] + x1[n % 10]
     return (y1 + y2 + y3 + y4).trim()
 }

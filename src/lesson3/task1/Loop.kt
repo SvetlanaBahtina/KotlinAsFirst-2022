@@ -109,7 +109,7 @@ fun fib(n: Int): Int {
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int) : Int{
+fun minDivisor(n: Int): Int {
     for (i in 2..sqrt(n.toDouble()).toInt()) if (n % i == 0) return i
     return n
 }
@@ -120,6 +120,7 @@ fun minDivisor(n: Int) : Int{
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int = n / minDivisor(n)
+
 /**
  * Простая (2 балла)
  *
@@ -157,12 +158,13 @@ fun collatzSteps(x: Int): Int {
 fun alg(m: Int, n: Int): Int {
     var a = m
     var b = n
-    while (a != b){
+    while (a != b) {
         if (a > b) a = a - b
         else b = b - a
     }
     return a
 }
+
 fun lcm(m: Int, n: Int): Int = m * n / alg(m, n)
 
 /**
@@ -184,7 +186,7 @@ fun isCoPrime(m: Int, n: Int): Boolean = alg(m, n) == 1
 fun revert(n: Int): Int {
     var k = n
     var l = 0
-    while (k != 0){
+    while (k != 0) {
         l = l * 10 + k % 10
         k = k / 10
     }
@@ -213,7 +215,7 @@ fun isPalindrome(n: Int): Boolean = TODO()
 fun hasDifferentDigits(n: Int): Boolean {
     var t = n / 10
     var k = n % 10
-    while (t != 0){
+    while (t != 0) {
         if (k != t % 10) return true
         t = t / 10
     }

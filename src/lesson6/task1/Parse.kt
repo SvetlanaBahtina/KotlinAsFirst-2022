@@ -78,14 +78,17 @@ fun main() {
  * входными данными.
  */
 fun dateStrToDigit(str: String): String {
-    val months = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября",
-        "ноября", "декабря")
+    val months = listOf(
+        "января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября",
+        "ноября", "декабря"
+    )
     if (str.matches(Regex("""\d* [а-я]* \d*"""))) {
         val datelist = mutableListOf<String>()
         val list = str.split(" ")
         for (x in list) datelist.add(x)
         if (datelist.size != 3 || !months.contains(datelist[1]) || datelist[0].toInt() !in
-            1..daysInMonth(months.indexOf(datelist[1]) + 1, datelist[2].toInt())) return ""
+            1..daysInMonth(months.indexOf(datelist[1]) + 1, datelist[2].toInt())
+        ) return ""
         datelist[1] = (months.indexOf(datelist[1]) + 1).toString()
         return String.format("%02d.%02d.%01d", datelist[0].toInt(), datelist[1].toInt(), datelist[2].toInt())
     }
@@ -103,14 +106,17 @@ fun dateStrToDigit(str: String): String {
  * входными данными.
  */
 fun dateDigitToStr(digital: String): String {
-    val months = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября",
-        "ноября", "декабря")
+    val months = listOf(
+        "января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября",
+        "ноября", "декабря"
+    )
     if (digital.matches(Regex("""\d+\.\d+\.\d+"""))) {
         val list = digital.split(".")
         val datelist = mutableListOf<String>()
         for (x in list) datelist.add(x)
         if (datelist.size != 3 || datelist[1].toInt() !in 1..months.size || datelist[0].toInt() !in
-            1..daysInMonth(datelist[1].toInt(), datelist[2].toInt())) return ""
+            1..daysInMonth(datelist[1].toInt(), datelist[2].toInt())
+        ) return ""
         datelist[1] = months[datelist[1].toInt() - 1]
         return String.format("%d %s %d", datelist[0].toInt(), datelist[1], datelist[2].toInt())
     }
@@ -146,7 +152,9 @@ fun flattenPhoneNumber(phone: String): String =
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
 fun bestLongJump(jumps: String): Int {
-    if (jumps == "" || jumps.contains(Regex("""[^\d\s\-%]"""))) return -1
+    if (jumps.contains(Regex("""[^\d\s\-%]""")) ||
+        jumps.contains(Regex("""(([%\-+])(\d))|((\d)([%\-+]))"""))
+    ) return -1
     val list = jumps.split(" ")
     var m = -1
     for (x in list) if (x != "-" && x != "%") m = max(m, x.toInt())
@@ -181,8 +189,8 @@ fun plusMinus(expression: String): Int {
     }
     val list = expression.split(" ")
     var res = list[0].toInt()
-    for (i in 1 until list.size step 2){
-        res += list[i+1].toInt() * when (list[i]) {
+    for (i in 1 until list.size step 2) {
+        res += list[i + 1].toInt() * when (list[i]) {
             "+" -> 1
             else -> -1
         }
