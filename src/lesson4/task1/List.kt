@@ -3,10 +3,8 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
-import lesson1.task1.sqr
-import lesson3.task1.isPrime
+import kotlin.math.pow
 import kotlin.math.sqrt
-import kotlin.collections.indexOf as indexOf1
 
 // Урок 4: списки
 // Максимальное количество баллов = 12
@@ -123,20 +121,14 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double {
-    var k = 0.0
-    for (element in v) {
-        k += sqr(element)
-    }
-    return sqrt(k)
-}
+fun abs(v: List<Double>): Double = sqrt(v.sumOf { it * it })
 
 /**
  * Простая (2 балла)
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double = if (list.size == 0) 0.0 else list.sum() * 1.0 / list.size
+fun mean(list: List<Double>): Double = if (list.size == 0) 0.0 else list.sum() / list.size
 
 /**
  * Средняя (3 балла)
@@ -147,12 +139,8 @@ fun mean(list: List<Double>): Double = if (list.size == 0) 0.0 else list.sum() *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
-    if (list.isNotEmpty()) {
-        var k = mean(list)
-        for (i in 0 until list.size) {
-            list[i] = list[i] - k
-        }
-    }
+    var k = mean(list)
+    for (i in 0 until list.size) list[i] -= k
     return list
 }
 
@@ -174,13 +162,9 @@ fun times(a: List<Int>, b: List<Int>): Int = TODO()
  * Значение пустого многочлена равно 0 при любом x.
  */
 fun polynom(p: List<Int>, x: Int): Int {
-    var k = 0
-    var y = 1
-    for (i in 0 until p.size) {
-        k = k + p[i] * y
-        y = y * x
-    }
-    return k
+    var r = 0
+    for (i in p.indices) r += (p[i] * x.toDouble().pow(i.toDouble())).toInt()
+    return r
 }
 
 /**
@@ -231,7 +215,7 @@ fun factorizeToString(n: Int): String = TODO()
 fun convert(n: Int, base: Int): MutableList<Int> {
     if (n == 0) return mutableListOf<Int>(0)
     var m = n
-    var v = mutableListOf<Int>()
+    val v = mutableListOf<Int>()
     while (m != 0) {
         v.add(m % base)
         m = m / base
@@ -252,19 +236,13 @@ fun convert(n: Int, base: Int): MutableList<Int> {
  * (например, n.toString(base) и подобные), запрещается.
  */
 fun convertToString(n: Int, base: Int): String {
-    if (n == 0) return "0"
-    var m = n
-    var v = ""
-    val k = listOf<String>(
-        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h",
-        "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
-    )
-    while (m != 0) {
-        v = k[m % base] + v
-        m = m / base
-    }
-    return v
+    val r = convert(n, base)
+    val v = StringBuilder()
+    val k = "0123456789abcdefghijklmnopqrstuvwxyz"
+    for (i in r.indices) v.append(k[r[i]])
+    return v.toString()
 }
+
 
 /**
  * Средняя (3 балла)
@@ -297,18 +275,12 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * (например, str.toInt(base)), запрещается.
  */
 fun decimalFromString(str: String, base: Int): Int {
-    val k = listOf<String>(
-        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h",
-        "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
-    )
-    var a = 1
-    var r = 0
-    val n = str.length
-    for (i in 0 until n) {
-        r += k.indexOf(element = str[n - i - 1].toString()) * a
-        a = a * base
+    val list = mutableListOf<Int>()
+    for (i in 0..str.length - 1) {
+        if (str[i] in '0'..'9') list.add(str[i] - '0')
+        else list.add(str[i] - 'a' + 10)
     }
-    return r
+    return if (str.length == 1) list[0] else decimal(list, base)
 }
 
 /**
