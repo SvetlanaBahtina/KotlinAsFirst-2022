@@ -120,7 +120,7 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
 fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
-    for ((k, v) in a) if (a[k] != b[k]) return false
+    for ((k, v) in a) if (v != b[k]) return false
     return true
 }
 
@@ -170,9 +170,11 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.intersect(b
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
 fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
-    val mapC = mutableMapOf<String, String>()
+    val mapC = mapA.toMutableMap()
     for ((k, v) in mapA) mapC[k] = v
-    for ((k, v) in mapB) if (k in mapC && (mapC[k] != v)) mapC[k] = mapC[k] + ", " + v else mapC[k] = v
+    for ((k, v) in mapB)
+        if (k in mapC && (mapC[k] != v)) mapC[k] = mapC[k] + ", " + v
+        else mapC[k] = v
     return mapC
 }
 
@@ -190,7 +192,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
     val a = mutableMapOf<String, Double>()
     val c = mutableMapOf<String, Int>()
     for (x in stockPrices) {
-        if (!(x.first in a)) a[x.first] = x.second
+        if (x.first !in a) a[x.first] = x.second
         else {
             if (x.first in c) c[x.first] = c.getValue(x.first) + 1
             else c[x.first] = 2

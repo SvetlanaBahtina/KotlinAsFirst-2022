@@ -149,10 +149,10 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int =
     when {
-    ((a <= c) && (c <= b) && (b <= d)) -> b - c
-    ((a <= c) && (d <= b)) -> d - c
-    ((c <= a) && (a <= d) && (d <= b)) -> d - a
-    ((c <= a) && (b <= d)) -> b - a
-    else -> -1
+        c in a..b && b <= d -> b - c
+        a <= c && d <= b -> d - c
+        a in c..d && d <= b -> d - a
+        c <= a && b <= d -> b - a
+        else -> -1
 }
 
