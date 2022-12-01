@@ -327,7 +327,7 @@ fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
                     }
                 }
         }
-        if (i > cells - 1) throw IllegalStateException(commands)
+        if (i !in 0 until cells) throw IllegalStateException(commands)
         c += 1
         j += 1
     }
