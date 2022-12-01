@@ -284,4 +284,54 @@ fun fromRoman(roman1: String): Int = TODO()
  * IllegalArgumentException должен бросаться даже если ошибочная команда не была достигнута в ходе выполнения.
  *
  */
-fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> = TODO()
+fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
+    if (commands.contains(Regex("""[^><\+\-\[\] ]""")) || commands.count{ it == '[' } != commands.count{ it == ']' })
+        throw IllegalArgumentException(commands)
+    val list = MutableList<Int>(cells) { 0 }
+    var i = cells / 2
+    var c = 0
+    var j = 0
+    while (c != limit && j != commands.length) {
+        when {
+            commands[j] == '>' -> i += 1
+            commands[j] == '<' -> i -= 1
+            commands[j] == '+' -> list[i] += 1
+            commands[j] == '-' -> list[i] -= 1
+            commands[j] == '[' ->
+                if (list[i] == 0) {
+                    var f = 1
+                    for (J in j + 1..commands.length - 1) {
+                        when {
+                            commands[J] == '[' -> f += 1
+                            commands[J] == ']' -> f -= 1
+                        }
+                        if (f == 0) {
+                            j = J
+                            break
+                        }
+                    }
+                }
+
+            commands[j] == ']' ->
+                if (list[i] != 0) {
+                    var f = 1
+                    for (J in j - 1 downTo 0) {
+                        when {
+                            commands[J] == ']' -> f += 1
+                            commands[J] == '[' -> f -= 1
+                        }
+                        if (f == 0) {
+                            j = J
+                            break
+                        }
+                    }
+                }
+        }
+        if (i > cells - 1) throw IllegalStateException(commands)
+        c += 1
+        j += 1
+    }
+    return list
+}
+
+
