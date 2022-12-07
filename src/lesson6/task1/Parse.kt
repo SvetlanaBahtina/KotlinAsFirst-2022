@@ -286,7 +286,9 @@ fun fromRoman(roman1: String): Int = TODO()
  *
  */
 fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
-    if (commands.contains(Regex("""[^><\+\-\[\] ]""")) || commands.count{ it == '[' } != commands.count{ it == ']' })
+    if (commands.contains(Regex("""[^><\+\-\[\] ]""")) ||
+        commands.count{ it == '[' } != commands.count{ it == ']' } ||
+        commands.indexOf("]") < commands.indexOf("["))
         throw IllegalArgumentException(commands)
     val list = MutableList<Int>(cells) { 0 }
     var i = cells / 2
