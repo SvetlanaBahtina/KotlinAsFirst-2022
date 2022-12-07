@@ -4,6 +4,7 @@ package lesson6.task1
 
 import lesson2.task2.daysInMonth
 import java.lang.Integer.max
+import java.util.*
 
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
@@ -333,5 +334,73 @@ fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
     }
     return list
 }
+
+/*
+ * Во входном списке `movers` перечислены компании, которые занимаются
+ * перевозкой домашних животных. Каждая компания описана в следующем
+ * формате:
+ *
+ * имя компании: вид животного - стоимость,
+ *
+ * Пример входных данных:
+ * SuperCats: кот - 100000,
+ * FastAndCheap: кот - 25000, собака - 30000, шиншилла - 5000,
+ * Lux: кот - 1000000, собака - 1000000, крыса - 1000000,
+ * корова - 1000000, бегемот - 1000000,
+ *
+ * Также на вход вам подается еще два параметра: список домашних
+ * животных, которых необходимо перевезти, `pets` и максимальная
+ * сумма, которую хозяева готовы потратить на перевозку, `limit`.
+ *
+ * Вам необходимо имена всех компаний, которые могут перевезти
+ * указанных животных в пределах заданной суммы.
+ *
+ * Например, для указанного списка компаний и параметров
+ * - `pets=["кот", "собака"] money = 20000000` вернуть ["Lux", "FastAndCheap"]
+ * - `pet=["кот"] money = 25000` вернуть ["FastAndCheap"]
+ * - `pet=["бегемот"] money = 500000` вернуть []
+ *
+ * При нарушении формата входных данных следует выбросить
+ * IllegalFormatException.
+ *
+ * Имя функции и тип результата функции предложить самостоятельно;
+ * в задании указан тип Collection<Any>, то есть коллекция объектов
+ * произвольного типа, можно (и нужно) изменить как вид коллекции,
+ * так и тип её элементов.
+ *
+ * Кроме функции, следует написать тесты,
+ * подтверждающие её работоспособность.
+
+fun myFun(movers: List<String>, pets: List<String>, limit: Int): Set<String> {
+    val res = mutableListOf<String>()
+    val moversMap = mutableMapOf<String, List<Pair<String, Int>>>()
+    for (x in movers) {
+        if (!"$x, ".matches(Regex("""[a-zA-Z]+: ([А-Яа-я]+ - \d+, )+"""))) throw IllegalArgumentException()
+        else {
+            val c = x.split(": ")
+            val d = c[1].split(", ")
+            val q = mutableListOf<Pair<String, Int>>()
+            for (l in d) {
+                val w = l.split(" - ")
+                q.add(w[0] to w[1].toInt())
+            }
+            moversMap[c[0]] = q
+        }
+    }
+    for ((k, v) in moversMap) {
+        var p = 0
+        val list = mutableListOf<String>()
+        for (i in v.indices){
+            if (v[i].first in pets) {
+                p += v[i].second
+                list.add(v[i].first)
+            }
+        }
+        if (p <= limit && list.toSet() == pets.toSet()) res.add(k)
+    }
+    if (res.size == 0) res.add("")
+    return res.toSet()
+}*/
+
 
 

@@ -150,4 +150,23 @@ class Tests {
         assertThrows(IllegalArgumentException::class.java) { computeDeviceCells(10, "+>+>[+>", 3) }
         assertThrows(IllegalStateException::class.java) { computeDeviceCells(20, ">>>>>>>>>>>>>", 12) }
     }
+/*    @Test
+    fun myFun() {
+        assertEquals(setOf("Lux", "FastAndCheap"), myFun(listOf("SuperCats: кот - 100000",
+            "FastAndCheap: кот - 25000, собака - 30000, шиншилла - 5000",
+            "Lux: кот - 1000000, собака - 1000000, крыса - 1000000, " +
+                    "корова - 1000000, бегемот - 1000000"), listOf("кот", "собака"), 20000000))
+        assertEquals(setOf("FastAndCheap"), myFun(listOf("SuperCats: кот - 100000",
+            "FastAndCheap: кот - 25000, собака - 30000, шиншилла - 5000",
+            "Lux: кот - 1000000, собака - 1000000, крыса - 1000000, " +
+                    "корова - 1000000, бегемот - 1000000"), listOf("кот"), 25000))
+        assertEquals(setOf(""), myFun(listOf("SuperCats: кот - 100000",
+            "FastAndCheap: кот - 25000, собака - 30000, шиншилла - 5000",
+            "Lux: кот - 1000000, собака - 1000000, крыса - 1000000, " +
+                    "корова - 1000000, бегемот - 1000000"), listOf("бегемот"), 500000))
+        assertThrows(IllegalArgumentException::class.java) { myFun(listOf("SuperCats: кот - 100000",
+            "FastAndCheap: ко- 25000, соба30000, шиншилла - 5000",
+            "Lux: кот - 1000000, собака - 1000000, крыса - 1000000, " +
+                    "корова - 1000000, бегемот - 1000000"), listOf("кот"), 2500) }
+    }*/
 }
