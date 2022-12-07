@@ -173,7 +173,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
     val mapC = mapA.toMutableMap()
     for ((k, v) in mapA) mapC[k] = v
     for ((k, v) in mapB)
-        if (k in mapC && (mapC[k] != v)) mapC[k] = mapC[k] + ", " + v
+        if (k in mapC && mapC[k] != v) mapC[k] = mapC[k] + ", " + v
         else mapC[k] = v
     return mapC
 }
@@ -222,8 +222,8 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
     var n = -1.0
     var k: String? = null
     for ((x) in stuff)
-        if ((stuff[x]?.first == kind) && ((n == -1.0) || (n > (stuff[x]?.second ?: return null)))) {
-            n = (stuff[x]?.second ?: return null)
+        if (stuff[x]?.first == kind && (n == -1.0 || n > (stuff[x]?.second ?: return null))) {
+            n = stuff[x]?.second ?: return null
             k = x
         }
     return k
