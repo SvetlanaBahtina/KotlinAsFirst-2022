@@ -503,17 +503,22 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     var f = true
     var k: Int
     var r = 0
-    if (lhv < rhv) {
-        if (lhv / 10 == 0) writer.write(" $lhv | $rhv")
-        else writer.write("$lhv | $rhv")
+    var c = 0
+    if (lhv < rhv || lhv / rhv == 0) {
+        if (lhv / 10 == 0) {
+            writer.write(" $lhv | $rhv")
+            c = 1
+        } else {
+            writer.write("$lhv | $rhv")
+            c = 0
+        }
         writer.newLine()
         for (i in 1..lhv.toString().length - 2) writer.write(" ")
         writer.write("-0   0")
         writer.newLine()
-        for (i in 1..lhv.toString().length - 2) writer.write(" ")
-        for (i in 1..2) writer.write("-")
+        for (i in 1..lhv.toString().length + c) writer.write("-")
         writer.newLine()
-        for (i in 1..lhv.toString().length) writer.write(" ")
+        for (i in 1..c) writer.write(" ")
         writer.write(lhv.toString())
     }
     else {
@@ -536,8 +541,13 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
                     f = false
                 }
                 writer.newLine()
-                for (q in 1..n) writer.write(" ")
-                for (q in 0..s.length) writer.write("-")
+                if (s == "0") {
+                    for (q in 1..i - k.toString().length + 2) writer.write(" ")
+                    for (q in 1..k.toString().length) writer.write("-")
+                } else {
+                    for (q in 1..n) writer.write(" ")
+                    for (q in 1..s.length + 1) writer.write("-")
+                }
                 writer.newLine()
                 r = k - s.toInt()
                 for (q in 1..1 + s.length - r.toString().length + n) writer.write(" ")
