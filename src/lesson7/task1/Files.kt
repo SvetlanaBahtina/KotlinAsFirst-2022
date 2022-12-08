@@ -542,8 +542,8 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
                 }
                 writer.newLine()
                 if (s == "0") {
-                    for (q in 1..i - k.toString().length + 2) writer.write(" ")
-                    for (q in 1..k.toString().length) writer.write("-")
+                    for (q in 1..i - k.toString().length + 2 - c) writer.write(" ")
+                    for (q in 1..k.toString().length + c) writer.write("-")
                 } else {
                     for (q in 1..n) writer.write(" ")
                     for (q in 1..s.length + 1) writer.write("-")
@@ -552,6 +552,7 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
                 r = k - s.toInt()
                 for (q in 1..1 + s.length - r.toString().length + n) writer.write(" ")
                 writer.write(r.toString())
+                if (r == 0) c = 1
             }
         }
     }
