@@ -499,6 +499,52 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
  *
  */
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    var f = true
+    var k: Int
+    var r = 0
+    if (lhv < rhv) {
+        if (lhv / 10 == 0) writer.write(" $lhv | $rhv")
+        else writer.write("$lhv | $rhv")
+        writer.newLine()
+        for (i in 1..lhv.toString().length - 2) writer.write(" ")
+        writer.write("-0   0")
+        writer.newLine()
+        for (i in 1..lhv.toString().length - 2) writer.write(" ")
+        for (i in 1..2) writer.write("-")
+        writer.newLine()
+        for (i in 1..lhv.toString().length) writer.write(" ")
+        writer.write(lhv.toString())
+    }
+    else {
+        writer.write(" $lhv | $rhv")
+        writer.newLine()
+        for (i in 0 until lhv.toString().length) {
+            if (f) k = lhv.toString().take(i + 1).toInt() else {
+                k = (r.toString() + lhv.toString()[i]).toInt()
+                writer.write(lhv.toString()[i].toString())
+                writer.newLine()
+            }
+            if (k / rhv != 0 || k / rhv == 0 && !f) {
+                val s = ((k / rhv) * rhv).toString()
+                val n = 1 + i - s.length
+                for (q in 1..n) writer.write(" ")
+                writer.write("-$s")
+                if (f) {
+                    for (q in 1..lhv.toString().length - i + 2) writer.write(" ")
+                    writer.write((lhv / rhv).toString())
+                    f = false
+                }
+                writer.newLine()
+                for (q in 1..n) writer.write(" ")
+                for (q in 0..s.length) writer.write("-")
+                writer.newLine()
+                r = k - s.toInt()
+                for (q in 1..1 + s.length - r.toString().length + n) writer.write(" ")
+                writer.write(r.toString())
+            }
+        }
+    }
+    writer.close()
 }
 
