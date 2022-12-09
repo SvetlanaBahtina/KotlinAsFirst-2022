@@ -132,7 +132,7 @@ fun centerFile(inputName: String, outputName: String) {
         writer.close()
         return
     }
-    val x = lines.maxByOrNull { it.trim().length }?.length
+    val x = lines.maxOfOrNull { it.trim().length }
     if (x == null) {
         writer.close()
         return
