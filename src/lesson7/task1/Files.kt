@@ -528,8 +528,7 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         writer.newLine()
         for (i in 1..c) writer.write(" ")
         writer.write(lhv.toString())
-    }
-    else {
+    } else {
         for (i in 0 until lhv.toString().length) {
             if (f) k = lhv.toString().take(i + 1).toInt() else {
                 k = (r.toString() + lhv.toString()[i]).toInt()
