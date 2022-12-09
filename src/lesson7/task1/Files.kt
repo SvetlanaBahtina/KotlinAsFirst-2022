@@ -126,8 +126,12 @@ fun sibilants(inputName: String, outputName: String) {
  */
 fun centerFile(inputName: String, outputName: String) {
     val lines = File(inputName).readLines()
-    val x = lines.maxByOrNull { it.trim().length }?.length ?: return
     val writer = File(outputName).bufferedWriter()
+    val x = lines.maxByOrNull { it.trim().length }?.length
+    if (x == null) {
+        writer.close()
+        return
+    }
     for (line in lines) {
         for (i in 1..(x - line.trim().length) / 2) writer.write(" ")
         writer.write(line.trim())
@@ -166,7 +170,11 @@ fun centerFile(inputName: String, outputName: String) {
 fun alignFileByWidth(inputName: String, outputName: String) {
     val lines = File(inputName).readLines()
     val writer = File(outputName).bufferedWriter()
-    val x = lines.maxOf { it.replace(" +".toRegex(), " ").trim().length }
+    val x = lines.maxOfOrNull { it.replace(" +".toRegex(), " ").trim().length }
+    if (x == null) {
+        writer.close()
+        return
+    }
     for (line in File(inputName).readLines()) {
         val l = line.replace(" +".toRegex(), " ")
         val words = Regex("""\s""").split(l.trim()).toMutableList()
@@ -499,7 +507,7 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     var k: Int
     var r = 0
     var c = 0
-    if (lhv < rhv || lhv / rhv == 0) {
+    if (lhv / rhv == 0) {
         if (lhv / 10 == 0) {
             writer.write(" $lhv | $rhv")
             c = 1
