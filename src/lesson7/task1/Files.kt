@@ -132,6 +132,10 @@ fun centerFile(inputName: String, outputName: String) {
         writer.close()
         return
     }
+    if (lines.size == 1){
+        writer.write(lines[0].trim())
+        return
+    }
     for (line in lines) {
         for (i in 1..(x - line.trim().length) / 2) writer.write(" ")
         writer.write(line.trim())
@@ -507,13 +511,14 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     var k: Int
     var r = 0
     var c = 0
+    var p = 0
     if (lhv / rhv == 0) {
-        if (lhv / 10 == 0) {
+        c = if (lhv / 10 == 0) {
             writer.write(" $lhv | $rhv")
-            c = 1
+            1
         } else {
             writer.write("$lhv | $rhv")
-            c = 0
+            0
         }
         writer.newLine()
         for (i in 1..lhv.toString().length - 2) writer.write(" ")
@@ -525,8 +530,6 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         writer.write(lhv.toString())
     }
     else {
-        writer.write(" $lhv | $rhv")
-        writer.newLine()
         for (i in 0 until lhv.toString().length) {
             if (f) k = lhv.toString().take(i + 1).toInt() else {
                 k = (r.toString() + lhv.toString()[i]).toInt()
@@ -536,7 +539,18 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
             if (k / rhv != 0 || k / rhv == 0 && !f) {
                 val s = ((k / rhv) * rhv).toString()
                 val n = 1 + i - s.length
-                for (q in 1..n) writer.write(" ")
+                if (f) {
+                    if (k.toString().length >= s.length + 1) {
+                        writer.write("$lhv | $rhv")
+                        writer.newLine()
+                        p = 0
+                    } else {
+                        writer.write(" $lhv | $rhv")
+                        writer.newLine()
+                        p = 1
+                    }
+                }
+                for (q in 1 until n + p) writer.write(" ")
                 writer.write("-$s")
                 if (f) {
                     for (q in 1..lhv.toString().length - i + 2) writer.write(" ")
@@ -545,15 +559,15 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
                 }
                 writer.newLine()
                 if (s == "0") {
-                    for (q in 1..i - k.toString().length + 2 - c) writer.write(" ")
+                    for (q in 1..i - k.toString().length + 1 - c + p) writer.write(" ")
                     for (q in 1..k.toString().length + c) writer.write("-")
                 } else {
-                    for (q in 1..n) writer.write(" ")
+                    for (q in 1 until n + p) writer.write(" ")
                     for (q in 1..s.length + 1) writer.write("-")
                 }
                 writer.newLine()
                 r = k - s.toInt()
-                for (q in 1..1 + s.length - r.toString().length + n) writer.write(" ")
+                for (q in 1..s.length - r.toString().length + n + p) writer.write(" ")
                 writer.write(r.toString())
                 if (r == 0) c = 1
             }
