@@ -67,8 +67,7 @@ fun deleteMarked(inputName: String, outputName: String) {
     for (line in File(inputName).readLines()) {
         if (line.isEmpty()) {
             writer.newLine()
-        }
-        else {
+        } else {
             if (line[0] != '_') {
                 writer.write(line)
                 writer.newLine()
@@ -175,7 +174,7 @@ fun alignFileByWidth(inputName: String, outputName: String) {
         writer.close()
         return
     }
-    for (line in File(inputName).readLines()) {
+    for (line in lines) {
         val l = line.replace(" +".toRegex(), " ")
         val words = Regex("""\s""").split(l.trim()).toMutableList()
         when {

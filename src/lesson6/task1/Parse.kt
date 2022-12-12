@@ -83,17 +83,15 @@ fun dateStrToDigit(str: String): String {
         "января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября",
         "ноября", "декабря"
     )
-    if (str.matches(Regex("""\d* [а-я]* \d*"""))) {
-        val datelist = mutableListOf<String>()
-        val list = str.split(" ")
-        for (x in list) datelist.add(x)
-        if (datelist.size != 3 || !months.contains(datelist[1]) || datelist[0].toInt() !in
-            1..daysInMonth(months.indexOf(datelist[1]) + 1, datelist[2].toInt())
-        ) return ""
-        datelist[1] = (months.indexOf(datelist[1]) + 1).toString()
-        return String.format("%02d.%02d.%01d", datelist[0].toInt(), datelist[1].toInt(), datelist[2].toInt())
-    }
-    return ""
+    if (!str.matches(Regex("""\d* [а-я]* \d*"""))) return ""
+    val datelist = str.split(" ")
+    val day = datelist[0].toInt()
+    val month = datelist[1]
+    val year = datelist[2].toInt()
+    if (datelist.size != 3 || !months.contains(month) || day !in
+        1..daysInMonth(months.indexOf(month) + 1, year)) return ""
+    val month1 = months.indexOf(month) + 1
+    return String.format("%02d.%02d.%01d", day, month1, year)
 }
 
 /**
@@ -208,7 +206,8 @@ fun firstDuplicateIndex(str: String): Int {
     val list = str.toLowerCase().split(" ")
     if (list.size == 1) return -1
     var c = 0
-    for (i in 0 until list.size - 1) if (list[i] == list[i + 1]) return c else c += list[i].length + 1
+    for (i in 0 until list.size - 1) if (list[i] == list[i + 1]) return c
+    else c += list[i].length + 1
     return -1
 }
 

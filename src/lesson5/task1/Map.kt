@@ -171,7 +171,6 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.intersect(b
  */
 fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
     val mapC = mapA.toMutableMap()
-    for ((k, v) in mapA) mapC[k] = v
     for ((k, v) in mapB)
         if (k in mapC && mapC[k] != v) mapC[k] = mapC[k] + ", " + v
         else mapC[k] = v
@@ -341,7 +340,7 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
     val d = mutableMapOf<Int, Int>()
     for (i in list.indices)
-        if (d[number - list[i]] != null) return d[number - list[i]]!!.toInt() to i
+        if (d[number - list[i]] != null) return d[number - list[i]]!! to i
         else d[list[i]] = i
     return -1 to -1
 }
